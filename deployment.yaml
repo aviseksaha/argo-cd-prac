@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: saidemy-service
+spec:
+  selector:
+    app: regapp       # should match with deployment-level label
+  ports:
+    - port: 80        # service port
+      targetPort: 80  # container port
+  type: LoadBalancer
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
