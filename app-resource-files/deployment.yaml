@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saidemy-regapp
+  labels:
+    app: regapp      # should match with service selector later defined in service.yaml
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: regapp     # should match
+  template:
+    metadata:
+      labels:
+        app: regapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          # imagePullPolicy: Always  # Always pull latest image
+          ports:
+            - containerPort: 80
+  strategy:   # (optional)To reuse containers even after node restart
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
